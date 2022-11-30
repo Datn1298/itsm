@@ -2,9 +2,18 @@ import { BaseEntity, Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } fro
 
 @Entity('ticket')
 export class Ticket extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   ticket_id: number
 
   @Column()
   company: string
+
+  @Column()
+  requester: string
+
+  @Column()
+  system_name: string
+
+  @Column()
+  purpose: string
 }

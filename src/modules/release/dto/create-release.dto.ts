@@ -1,12 +1,14 @@
 import { IsNotEmpty, Length } from "class-validator";
 
-export class CreateTicketDto {
+export class CreateReleaseDto {
+
     @IsNotEmpty()
     ticket_id: number;
 
     @IsNotEmpty()
-    start_date: string;
+    @Length(3)
+    company: string;
 
     @IsNotEmpty()
-    end_date: string
+    requester: string
 }

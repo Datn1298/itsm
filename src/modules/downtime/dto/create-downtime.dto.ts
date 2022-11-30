@@ -1,6 +1,6 @@
 import { IsNotEmpty, Length } from "class-validator";
 
-export class CreateTicketDto {
+export class CreateDowntimeDto {
     @IsNotEmpty()
     ticket_id: number;
 

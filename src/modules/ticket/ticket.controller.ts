@@ -17,7 +17,7 @@ export class TicketController {
 	@Post('/create')
 	@HttpCode(200)
 	@UsePipes(ValidationPipe)
-	createTicket(@Body() ticketData: CreateTicketDto){
-		return {'data': ticketData}
+	async createTicket(@Body() ticketData: CreateTicketDto){
+		return await this.ticketService.createNewTicket(ticketData)
 	}
 }
