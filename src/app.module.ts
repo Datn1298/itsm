@@ -8,15 +8,13 @@ import { TaskModule } from './modules/task/task.module';
 import { DowntimeModule } from './modules/downtime/downtime.module';
 import { typeOrmModule } from './config/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-
-
+import { HttpModule } from './modules/http/http.module';
 
 @Module({
   // imports: [TicketModule, TypeOrmModule.forRoot(typeOrmModule), ReleaseModule],
   // controllers: [AppController, TicketController],
   // providers: [AppService, TicketService],
-  imports: [TicketModule, ReleaseModule, TaskModule, DowntimeModule, TypeOrmModule.forRoot(typeOrmModule)],
+  imports: [TicketModule, ReleaseModule, TaskModule, DowntimeModule, TypeOrmModule.forRoot(typeOrmModule), HttpModule],
   controllers: [AppController,],
   providers: [AppService],
 })

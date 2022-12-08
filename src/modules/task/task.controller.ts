@@ -15,14 +15,9 @@ export class TaskController {
   }
 
   @Get()
-  async findAll(@Query() dto: TaskInfoDTO) {
+  findAll() {
     return this.taskService.findAll();
   }
-
-  // @Get()
-  // findAll() {
-  //   return this.taskService.findAll();
-  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

@@ -7,7 +7,7 @@ import { Release } from "src/modules/models/release.entity";
 
 export const typeOrmModule: TypeOrmModuleOptions = {
     type: "postgres",
-    host: "192.168.0.19",
+    host: "localhost",
     port: 5432,
     username: "postgres",
     password: "123",

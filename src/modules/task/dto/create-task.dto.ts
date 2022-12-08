@@ -9,5 +9,5 @@ export class CreateTaskDto {
     company: string;
 
     @IsNotEmpty()
-    requester: string
+    requester: string;
 }

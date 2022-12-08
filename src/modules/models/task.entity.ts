@@ -13,4 +13,7 @@ export class Task extends BaseEntity {
 
     @Column()
     ticket_id: number;
+
+    @Column()
+    type: string
 }

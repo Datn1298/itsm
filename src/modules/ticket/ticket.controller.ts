@@ -1,23 +1,35 @@
-import { Body, Controller, Get, HttpCode, Post, UsePipes, ValidationPipe } from '@nestjs/common';
-import { ValidationTypes } from 'class-validator';
-import { CreateTicketDto } from './dto/createTicket.dto';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { TicketService } from './ticket.service';
+import { CreateTicketDto } from './dto/create-ticket.dto';
+import { UpdateTicketDto } from './dto/update-ticket.dto';
 
 @Controller('ticket')
 export class TicketController {
+  constructor(private readonly ticketService: TicketService) {}
 
-	constructor(private ticketService: TicketService){}
+  @Post()
+  create(@Body() createTicketDto: CreateTicketDto) {
+    return this.ticketService.create(createTicketDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.ticketService.findAll();
+  }
+
+  @Get(':id')
+  findOneByTicketID(@Param('id') id: number) {
+    return this.ticketService.findOneByTicketID(id);
+  }
 
 
-	@Get('/')
-	getTicket(){
-		return this.ticketService.getAllTicket();
-	}
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateTicketDto: UpdateTicketDto) {
+    return this.ticketService.update(+id, updateTicketDto);
+  }
 
-	@Post('/create')
-	@HttpCode(200)
-	@UsePipes(ValidationPipe)
-	async createTicket(@Body() ticketData: CreateTicketDto){
-		return await this.ticketService.createNewTicket(ticketData)
-	}
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.ticketService.remove(+id);
+  }
 }

@@ -2,38 +2,31 @@ import { Injectable } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import {TaskInfoDTO} from './dto/task-info.dto'
-// import { queryITSM } from 'src/util/psql';
+import { Task } from '../models/task.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-const { Pool } = require('pg')
-
-const pool = new Pool({
-    host: "192.168.0.19",
-    port: 5432,
-    user: "postgres",
-    password: "123",
-    database: "itsm",
-});
 
 @Injectable()
 export class TaskService {
+  constructor(
+    @InjectRepository(Task) private readonly taskRepository: Repository<Task>,
+  ) {
+  }
 
-  create(createTaskDto: CreateTaskDto) {
-    let query = "INSERT INTO task(start_date, end_date, ticket_id) VALUES ($1, $2, $3);"
-
-    return 'This action adds a new task';
+  create(createTaskDto) {
+    createTaskDto.services.forEach(element => {
+      this.taskRepository.save({
+        ticket_id: createTaskDto.ticket_id,
+        type: element.type,
+        start_date: element.start_date,
+        end_date: element.end_date
+      });
+    });
   }
 
   findAll() {
-    let query = `SELECT * from task`
-    let response: any
-
-    pool.query(query, (error, results) => {
-      if (error) {
-        throw error
-      }
-      response.status(200).json(results.rows)
-    })
-    return '1'
+    return this.taskRepository.find();
   }
 
   findOne(id: number) {

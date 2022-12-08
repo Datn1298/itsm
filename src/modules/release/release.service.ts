@@ -1,19 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { CreateReleaseDto } from './dto/create-release.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm/repository/Repository';
+import { Release } from '../models/release.entity';
+
 import { UpdateReleaseDto } from './dto/update-release.dto';
 
 @Injectable()
 export class ReleaseService {
-  create(createReleaseDto: CreateReleaseDto) {
-    return 'This action adds a new release';
+  constructor(
+    @InjectRepository(Release) private readonly rlRepository: Repository<Release>,
+  ) {
   }
 
-  findAll() {
-    return `This action returns all release`;
+  create(createReleaseDto) {
+    
+    return this.rlRepository.save({
+      ticket_id: createReleaseDto.ticket_id,
+      start_date: createReleaseDto.start_date,
+      end_date: createReleaseDto.end_date
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} release`;
+  async findAll(): Promise<Release[]> {
+    return this.rlRepository.find();
+  }
+
+  async findOneByTicketID(id: number): Promise<Release[]> {
+    return this.rlRepository.find({
+      where: {
+        ticket_id : id,
+      }
+    });
   }
 
   update(id: number, updateReleaseDto: UpdateReleaseDto) {

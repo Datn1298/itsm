@@ -6,10 +6,10 @@ export class Downtime extends BaseEntity {
     downtime_id: number;
 
     @Column()
-    start_date: string;
+    start_date: number;
 
     @Column()
-    end_date: string;
+    end_date: number;
 
     @Column()
     ticket_id: number;

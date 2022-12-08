@@ -8,7 +8,7 @@ export class ReleaseController {
   constructor(private readonly releaseService: ReleaseService) {}
 
   @Post()
-  create(@Body() createReleaseDto: CreateReleaseDto) {
+  create(@Body() createReleaseDto) {
     return this.releaseService.create(createReleaseDto);
   }
 
@@ -18,8 +18,8 @@ export class ReleaseController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.releaseService.findOne(+id);
+  findOneByTicketID(@Param('id') id: string) {
+    return this.releaseService.findOneByTicketID(+id);
   }
 
   @Patch(':id')
